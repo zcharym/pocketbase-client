@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/pocketbase/pocketbase"
-	_ "github.com/r--w/pocketbase/migrations"
+	_ "github.com/pluja/pocketbase/migrations"
 )
 
 func main() {

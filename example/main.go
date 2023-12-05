@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/mitchellh/mapstructure"
-	"github.com/r--w/pocketbase"
+	"github.com/pluja/pocketbase"
 )
 
 type Post struct {
