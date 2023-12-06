@@ -181,6 +181,9 @@ func (c *Client) List(collection string, params ParamsList) (ResponseList[map[st
 	if params.Expand != "" {
 		request.SetQueryParam("expand", params.Expand)
 	}
+	if params.Fields != "" {
+		request.SetQueryParam("fields", params.Fields)
+	}
 
 	resp, err := request.Get(c.url + "/api/collections/{collection}/records")
 	if err != nil {
