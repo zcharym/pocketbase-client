@@ -6,7 +6,8 @@ This repository contains community-maintained Go SDK for Pocketbase API.
 It's well-tested and used in production in [Coinpaprika](https://coinpaprika.com), but not all endpoints are covered yet.
 
 ### Compatibility
-* `v0.20.0` version of SDK is compatible with Pocketbase v0.20.x (may be unstable, not 100% tested)
+* `v0.21.0` version of SDK is compatible with Pocketbase v0.21.x
+* `v0.20.0` version of SDK is compatible with Pocketbase v0.20.x
 * `v0.19.0` version of SDK is compatible with Pocketbase v0.19.x
 * `v0.13.0` version of SDK is compatible with Pocketbase v0.13.x and higher
 * `v0.12.0` version of SDK is compatible with Pocketbase v0.12.x
