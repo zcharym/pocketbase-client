@@ -58,6 +58,12 @@ func WithUserEmailPassword(email, password string) ClientOption {
 	}
 }
 
+func WithEmailPassword(collection, email, password string) ClientOption {
+	return func(c *Client) {
+		c.authorizer = newAuthorizeEmailPassword(c.client, c.url+"/api/collections/"+collection+"/auth-with-password", email, password)
+	}
+}
+
 func WithAdminToken(token string) ClientOption {
 	return func(c *Client) {
 		c.authorizer = newAuthorizeToken(c.client, c.url+"/api/admins/auth-refresh", token)
