@@ -2,10 +2,13 @@
 [![PocketBase](https://pocketbase.io/images/logo.svg)](https://pocketbase.io)
 
 ### Project
-This repository contains community-maintained Go SDK for Pocketbase API.
-It's well-tested and used in production in [Coinpaprika](https://coinpaprika.com), but not all endpoints are covered yet.
+This repository contains community-maintained Go SDK for Pocketbase API. Not all endpoints are covered yet, if you need some particular endpoint or feature, please feel free to open a Pull Request.
+It's well-tested and used in production in:
+- [Coinpaprika](https://coinpaprika.com)
+- [KYCNOT.me](https://kycnot.me)
 
 ### Compatibility
+* `v0.22.0` version of SDK is compatible with Pocketbase v0.22.x
 * `v0.21.0` version of SDK is compatible with Pocketbase v0.21.x
 * `v0.20.0` version of SDK is compatible with Pocketbase v0.20.x
 * `v0.19.0` version of SDK is compatible with Pocketbase v0.19.x
