@@ -113,8 +113,18 @@ type post struct {
 func main() {
 	client := pocketbase.NewClient("http://localhost:8090")
 	collection := pocketbase.CollectionSet[post](client, "posts_public")
+
+	// List with pagination
 	response, err := collection.List(pocketbase.ParamsList{
 		Page: 1, Size: 10, Sort: "-created", Filters: "field~'test'",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// FullList also available for collections:
+	response, err := collection.FullList(pocketbase.ParamsList{
+		Sort: "-created", Filters: "field~'test'",
 	})
 	if err != nil {
 		log.Fatal(err)
