@@ -34,6 +34,14 @@ func (c Collection[T]) List(params ParamsList) (ResponseList[T], error) {
 	return response, err
 }
 
+func (c Collection[T]) FullList(params ParamsList) (ResponseList[T], error) {
+	var response ResponseList[T]
+	params.hackResponseRef = &response
+
+	_, err := c.Client.FullList(c.Name, params)
+	return response, err
+}
+
 func (c Collection[T]) One(id string) (T, error) {
 	var response T
 
