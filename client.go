@@ -208,6 +208,37 @@ func (c *Client) List(collection string, params ParamsList) (ResponseList[map[st
 	return response, nil
 }
 
+func (c *Client) FullList(collection string, params ParamsList) (ResponseList[map[string]any], error) {
+	var response ResponseList[map[string]any]
+	params.Page = 1
+	params.Size = 500
+
+	if err := c.Authorize(); err != nil {
+		return response, err
+	}
+
+	r, e := c.List(collection, params)
+	if e != nil {
+		return response, e
+	}
+	response.Items = append(response.Items, r.Items...)
+	response.Page = r.Page
+	response.PerPage = r.PerPage
+	response.TotalItems = r.TotalItems
+	response.TotalPages = r.TotalPages
+
+	for i := 2; i <= r.TotalPages; i++ { // Start from page 2 because first page is already fetched
+		params.Page = i
+		r, e := c.List(collection, params)
+		if e != nil {
+			return response, e
+		}
+		response.Items = append(response.Items, r.Items...)
+	}
+
+	return response, nil
+}
+
 func (c *Client) AuthStore() authStore {
 	return c.authorizer
 }
