@@ -48,12 +48,24 @@ import (
 
 func main() {
 	client := pocketbase.NewClient("http://localhost:8090")
+
+	// You can list with pagination:
 	response, err := client.List("posts_public", pocketbase.ParamsList{
 		Page: 1, Size: 10, Sort: "-created", Filters: "field~'test'",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Print(response.TotalItems)
+
+	// Or you can use the FullList method (v0.0.7)
+	response, err := client.FullList("posts_public", pocketbase.ParamsList{
+		Sort: "-created", Filters: "field~'test'",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	log.Print(response.TotalItems)
 }
 ```
