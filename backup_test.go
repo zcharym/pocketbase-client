@@ -2,11 +2,12 @@ package pocketbase
 
 import (
 	"bytes"
+	"os"
+	"testing"
+
 	"github.com/pluja/pocketbase/migrations"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"os"
-	"testing"
 )
 
 func TestBackup_FullList(t *testing.T) {
@@ -37,7 +38,7 @@ func TestBackup_FullList(t *testing.T) {
 		assert.NotEmpty(t, resp)
 
 		// cleanup
-		defaultClient.Backup().Delete(resp[0].Key)
+		_ = defaultClient.Backup().Delete(resp[0].Key)
 	})
 }
 
@@ -64,7 +65,7 @@ func TestBackup_Create(t *testing.T) {
 		require.NotEmpty(t, resp)
 
 		// cleanup
-		defaultClient.Backup().Delete(resp[0].Key)
+		_ = defaultClient.Backup().Delete(resp[0].Key)
 	})
 
 	t.Run("with valid authentication, create backup with name and check", func(t *testing.T) {
@@ -76,7 +77,7 @@ func TestBackup_Create(t *testing.T) {
 		assert.True(t, isBackupexisting(t, defaultClient, backupName+".zip"))
 
 		// cleanup
-		defaultClient.Backup().Delete(backupName + ".zip")
+		_ = defaultClient.Backup().Delete(backupName + ".zip")
 	})
 
 	t.Run("with valid authentication, create backup with name incl. zip-extension and check", func(t *testing.T) {
@@ -88,7 +89,7 @@ func TestBackup_Create(t *testing.T) {
 		assert.True(t, isBackupexisting(t, defaultClient, backupName))
 
 		// cleanup
-		defaultClient.Backup().Delete(backupName)
+		_ = defaultClient.Backup().Delete(backupName)
 	})
 }
 

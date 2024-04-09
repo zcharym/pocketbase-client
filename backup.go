@@ -179,7 +179,7 @@ func (b Backup) Restore(key string) error {
 // The file token can be generated via `client.Files().GetToken()`.
 func (b Backup) GetDownloadURL(token string, key string) (string, error) {
 	if strings.TrimSpace(token) == "" || strings.TrimSpace(key) == "" {
-		return "", fmt.Errorf("[backup] pocketbase cannot get donwload-URL because of a missing token and/or key.")
+		return "", fmt.Errorf("[backup] pocketbase cannot get donwload-URL because of a missing token and/or key")
 	}
 
 	if err := b.Authorize(); err != nil {
