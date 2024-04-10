@@ -248,3 +248,15 @@ func (c *Client) FullList(collection string, params ParamsList) (ResponseList[ma
 func (c *Client) AuthStore() authStore {
 	return c.authorizer
 }
+
+func (c *Client) Backup() Backup {
+	return Backup{
+		Client: c,
+	}
+}
+
+func (c *Client) Files() Files {
+	return Files{
+		Client: c,
+	}
+}
