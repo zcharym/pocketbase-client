@@ -17,6 +17,7 @@ type (
 		client     *resty.Client
 		url        string
 		authorizer authStore
+		token      string
 	}
 	ClientOption func(*Client)
 )

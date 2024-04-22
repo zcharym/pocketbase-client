@@ -3,15 +3,21 @@ package pocketbase
 import (
 	"encoding/json"
 	"fmt"
+	"net/url"
 )
 
 type Collection[T any] struct {
 	*Client
-	Name string
+	Name               string
+	BaseCollectionPath string
 }
 
 func CollectionSet[T any](client *Client, collection string) Collection[T] {
-	return Collection[T]{client, collection}
+	return Collection[T]{
+		Client:             client,
+		Name:               collection,
+		BaseCollectionPath: client.url + "/api/collections/" + url.QueryEscape(collection),
+	}
 }
 
 func (c Collection[T]) Update(id string, body T) error {
