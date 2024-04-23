@@ -1,6 +1,6 @@
 module github.com/pluja/pocketbase
 
-go 1.21.3
+go 1.21.9
 
 require (
 	github.com/SierraSoftworks/multicast/v2 v2.0.0
@@ -10,6 +10,7 @@ require (
 	github.com/go-resty/resty/v2 v2.12.0
 	github.com/pocketbase/dbx v1.10.1
 	github.com/pocketbase/pocketbase v0.22.9
+	github.com/mitchellh/mapstructure v1.5.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/sync v0.7.0
 )
