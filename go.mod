@@ -8,7 +8,6 @@ require (
 	github.com/donovanhide/eventsource v0.0.0-20210830082556-c59027999da0
 	github.com/duke-git/lancet/v2 v2.3.0
 	github.com/go-resty/resty/v2 v2.11.0
-	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pocketbase/dbx v1.10.1
 	github.com/pocketbase/pocketbase v0.20.0
 	github.com/stretchr/testify v1.8.4

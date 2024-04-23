@@ -18,7 +18,7 @@ type (
 		Name                string `json:"name"`
 		DisplayName         string `json:"displayName"`
 		State               string `json:"state"`
-		AuthUrl             string `json:"authUrl"`
+		AuthURL             string `json:"authUrl"`
 		CodeVerifier        string `json:"codeVerifier"`
 		CodeChallenge       string `json:"codeChallenge"`
 		CodeChallengeMethod string `json:"codeChallengeMethod"`
@@ -62,12 +62,12 @@ type (
 
 	Record struct {
 		Avatar          string `json:"avatar"`
-		CollectionId    string `json:"collectionId"`
+		CollectionID    string `json:"collectionId"`
 		CollectionName  string `json:"collectionName"`
 		Created         string `json:"created"`
 		Email           string `json:"email"`
 		EmailVisibility bool   `json:"emailVisibility"`
-		Id              string `json:"id"`
+		ID              string `json:"id"`
 		Name            string `json:"name"`
 		Updated         string `json:"updated"`
 		Username        string `json:"username"`
@@ -128,7 +128,7 @@ type AuthWithOauth2Response struct {
 // - the authentication token via the model
 // - the authenticated record model
 // - the OAuth2 account data (eg. name, email, avatar, etc.)
-func (c Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVerifier string, redirectUrl string) (AuthWithOauth2Response, error) {
+func (c Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVerifier string, redirectURL string) (AuthWithOauth2Response, error) {
 	var response AuthWithOauth2Response
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -140,7 +140,7 @@ func (c Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVeri
 			"provider":     provider,
 			"code":         code,
 			"codeVerifier": codeVerifier,
-			"redirectUrl":  redirectUrl,
+			"redirectUrl":  redirectURL,
 			//"createData":   createData,
 		})
 
@@ -168,12 +168,12 @@ func (c Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVeri
 type AuthRefreshResponse struct {
 	Record struct {
 		Avatar          string `json:"avatar"`
-		CollectionId    string `json:"collectionId"`
+		CollectionID    string `json:"collectionId"`
 		CollectionName  string `json:"collectionName"`
 		Created         string `json:"created"`
 		Email           string `json:"email"`
 		EmailVisibility bool   `json:"emailVisibility"`
-		Id              string `json:"id"`
+		ID              string `json:"id"`
 		Name            string `json:"name"`
 		Updated         string `json:"updated"`
 		Username        string `json:"username"`
@@ -382,17 +382,17 @@ func (c Collection[T]) ConfirmEmailChange(emailChangeToken string, password stri
 }
 
 type ExternalAuthRequest struct {
-	Id           string `json:"id"`
+	ID           string `json:"id"`
 	Created      string `json:"created"`
 	Updated      string `json:"updated"`
-	RecordId     string `json:"recordId"`
-	CollectionId string `json:"collectionId"`
+	RecordID     string `json:"recordId"`
+	CollectionID string `json:"collectionId"`
 	Provider     string `json:"provider"`
-	ProviderId   string `json:"providerId"`
+	ProviderID   string `json:"providerId"`
 }
 
 // ListExternalAuths lists all linked external auth providers for the specified auth record.
-func (c Collection[T]) ListExternalAuths(recordId string) ([]ExternalAuthRequest, error) {
+func (c Collection[T]) ListExternalAuths(recordID string) ([]ExternalAuthRequest, error) {
 	var response []ExternalAuthRequest
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -401,7 +401,7 @@ func (c Collection[T]) ListExternalAuths(recordId string) ([]ExternalAuthRequest
 	request := c.client.R().
 		SetHeader("Content-Type", "application/json")
 
-	resp, err := request.Get(c.baseCrudPath() + url.QueryEscape(recordId) + "/external-auths")
+	resp, err := request.Get(c.baseCrudPath() + url.QueryEscape(recordID) + "/external-auths")
 	if err != nil {
 		return response, fmt.Errorf("[records] can't send list external-auths request to pocketbase, err %w", err)
 	}
@@ -421,7 +421,7 @@ func (c Collection[T]) ListExternalAuths(recordId string) ([]ExternalAuthRequest
 }
 
 // UnlinkExternalAuth unlink a single external auth provider from the specified auth record.
-func (c Collection[T]) UnlinkExternalAuth(recordId string, provider string) error {
+func (c Collection[T]) UnlinkExternalAuth(recordID string, provider string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -429,7 +429,7 @@ func (c Collection[T]) UnlinkExternalAuth(recordId string, provider string) erro
 	request := c.client.R().
 		SetHeader("Content-Type", "application/json")
 
-	resp, err := request.Delete(c.baseCrudPath() + url.QueryEscape(recordId) + "/external-auths/" + url.QueryEscape(provider))
+	resp, err := request.Delete(c.baseCrudPath() + url.QueryEscape(recordID) + "/external-auths/" + url.QueryEscape(provider))
 	if err != nil {
 		return fmt.Errorf("[records] can't send unlink-external-auth-request to pocketbase, err %w", err)
 	}

@@ -1,12 +1,13 @@
 package pocketbase
 
 import (
-	"github.com/pluja/pocketbase/migrations"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/pluja/pocketbase/migrations"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type User struct {
@@ -61,7 +62,7 @@ func TestCollection_AuthWithPassword(t *testing.T) {
 	})
 }
 
-func TestCollection_AuthWithOauth2(t *testing.T) {
+func TestCollection_AuthWithOauth2(_ *testing.T) {
 	// actually I don't know how to test
 }
 
