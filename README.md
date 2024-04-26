@@ -209,7 +209,10 @@ import (
 )
 
 type User struct {
-	Username string `json:"username"`
+	AuthProviders    []interface{} `json:"authProviders"`
+	UsernamePassword bool          `json:"usernamePassword"`
+	EmailPassword    bool          `json:"emailPassword"`
+	OnlyVerified     bool          `json:"onlyVerified"`
 }
 
 func main() {
