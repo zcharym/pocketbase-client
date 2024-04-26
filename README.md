@@ -196,6 +196,37 @@ func main() {
 }
 ```
 
+
+Authenticate user from collection
+
+```go
+package main
+
+import (
+	"log"
+
+	"github.com/pluja/pocketbase"
+)
+
+type User struct {
+	AuthProviders    []interface{} `json:"authProviders"`
+	UsernamePassword bool          `json:"usernamePassword"`
+	EmailPassword    bool          `json:"emailPassword"`
+	OnlyVerified     bool          `json:"onlyVerified"`
+}
+
+func main() {
+	client := pocketbase.NewClient("http://localhost:8090")
+	response, err := pocketbase.CollectionSet[User](client, "users").AuthWithPassword("user", "user@user.com")
+	if err != nil {
+		log.Println("user-authentication failed")
+		log.Fatal(err)
+		return
+	}
+	log.Println("authentication successful")
+	log.Printf("JWT-token: %s\n", response.Token)
+}
+```
 More examples can be found in:
 * [example file](./example/main.go)
 * [tests for the client](./client_test.go)
