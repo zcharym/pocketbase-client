@@ -26,7 +26,7 @@ type (
 )
 
 // ListAuthMethods returns all available collection auth methods.
-func (c Collection[T]) ListAuthMethods() (AuthMethod, error) {
+func (c *Collection[T]) ListAuthMethods() (AuthMethod, error) {
 	var response AuthMethod
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -81,7 +81,7 @@ type (
 // the client's AuthStore data and returns:
 // - the authentication token via the AuthWithPasswordResponse
 // - the authenticated record model
-func (c Collection[T]) AuthWithPassword(username string, password string) (AuthWithPasswordResponse, error) {
+func (c *Collection[T]) AuthWithPassword(username string, password string) (AuthWithPasswordResponse, error) {
 	var response AuthWithPasswordResponse
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -128,7 +128,7 @@ type AuthWithOauth2Response struct {
 // - the authentication token via the model
 // - the authenticated record model
 // - the OAuth2 account data (eg. name, email, avatar, etc.)
-func (c Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVerifier string, redirectURL string) (AuthWithOauth2Response, error) {
+func (c *Collection[T]) AuthWithOAuth2Code(provider string, code string, codeVerifier string, redirectURL string) (AuthWithOauth2Response, error) {
 	var response AuthWithOauth2Response
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -184,7 +184,7 @@ type AuthRefreshResponse struct {
 
 // AuthRefresh refreshes the current authenticated record instance and
 // * returns a new token and record data.
-func (c Collection[T]) AuthRefresh() (AuthRefreshResponse, error) {
+func (c *Collection[T]) AuthRefresh() (AuthRefreshResponse, error) {
 	var response AuthRefreshResponse
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -216,7 +216,7 @@ func (c Collection[T]) AuthRefresh() (AuthRefreshResponse, error) {
 }
 
 // RequestVerification sends auth record verification email request.
-func (c Collection[T]) RequestVerification(email string) error {
+func (c *Collection[T]) RequestVerification(email string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -245,7 +245,7 @@ func (c Collection[T]) RequestVerification(email string) error {
 //
 // If the current `client.authStore.model` matches with the auth record from the token,
 // then on success the `client.authStore.model.verified` will be updated to `true`.
-func (c Collection[T]) ConfirmVerification(verificationToken string) error {
+func (c *Collection[T]) ConfirmVerification(verificationToken string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -271,7 +271,7 @@ func (c Collection[T]) ConfirmVerification(verificationToken string) error {
 }
 
 // RequestPasswordReset sends auth record password reset request
-func (c Collection[T]) RequestPasswordReset(email string) error {
+func (c *Collection[T]) RequestPasswordReset(email string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -297,7 +297,7 @@ func (c Collection[T]) RequestPasswordReset(email string) error {
 }
 
 // ConfirmPasswordReset confirms auth record password reset request.
-func (c Collection[T]) ConfirmPasswordReset(passwordResetToken string, password string, passwordConfirm string) error {
+func (c *Collection[T]) ConfirmPasswordReset(passwordResetToken string, password string, passwordConfirm string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -325,7 +325,7 @@ func (c Collection[T]) ConfirmPasswordReset(passwordResetToken string, password 
 }
 
 // RequestEmailChange sends an email change request to the authenticated record model.
-func (c Collection[T]) RequestEmailChange(newEmail string) error {
+func (c *Collection[T]) RequestEmailChange(newEmail string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -353,7 +353,7 @@ func (c Collection[T]) RequestEmailChange(newEmail string) error {
 }
 
 // ConfirmEmailChange confirms auth record's new email address.
-func (c Collection[T]) ConfirmEmailChange(emailChangeToken string, password string) error {
+func (c *Collection[T]) ConfirmEmailChange(emailChangeToken string, password string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -392,7 +392,7 @@ type ExternalAuthRequest struct {
 }
 
 // ListExternalAuths lists all linked external auth providers for the specified auth record.
-func (c Collection[T]) ListExternalAuths(recordID string) ([]ExternalAuthRequest, error) {
+func (c *Collection[T]) ListExternalAuths(recordID string) ([]ExternalAuthRequest, error) {
 	var response []ExternalAuthRequest
 	if err := c.Authorize(); err != nil {
 		return response, err
@@ -421,7 +421,7 @@ func (c Collection[T]) ListExternalAuths(recordID string) ([]ExternalAuthRequest
 }
 
 // UnlinkExternalAuth unlink a single external auth provider from the specified auth record.
-func (c Collection[T]) UnlinkExternalAuth(recordID string, provider string) error {
+func (c *Collection[T]) UnlinkExternalAuth(recordID string, provider string) error {
 	if err := c.Authorize(); err != nil {
 		return err
 	}
@@ -444,10 +444,10 @@ func (c Collection[T]) UnlinkExternalAuth(recordID string, provider string) erro
 	return nil
 }
 
-func (c Collection[T]) baseCollectionPath() string {
+func (c *Collection[T]) baseCollectionPath() string {
 	return c.BaseCollectionPath
 }
 
-func (c Collection[T]) baseCrudPath() string {
+func (c *Collection[T]) baseCrudPath() string {
 	return c.BaseCollectionPath + "/records/"
 }

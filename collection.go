@@ -12,27 +12,27 @@ type Collection[T any] struct {
 	BaseCollectionPath string
 }
 
-func CollectionSet[T any](client *Client, collection string) Collection[T] {
-	return Collection[T]{
+func CollectionSet[T any](client *Client, collection string) *Collection[T] {
+	return &Collection[T]{
 		Client:             client,
 		Name:               collection,
 		BaseCollectionPath: client.url + "/api/collections/" + url.QueryEscape(collection),
 	}
 }
 
-func (c Collection[T]) Update(id string, body T) error {
+func (c *Collection[T]) Update(id string, body T) error {
 	return c.Client.Update(c.Name, id, body)
 }
 
-func (c Collection[T]) Create(body T) (ResponseCreate, error) {
+func (c *Collection[T]) Create(body T) (ResponseCreate, error) {
 	return c.Client.Create(c.Name, body)
 }
 
-func (c Collection[T]) Delete(id string) error {
+func (c *Collection[T]) Delete(id string) error {
 	return c.Client.Delete(c.Name, id)
 }
 
-func (c Collection[T]) List(params ParamsList) (ResponseList[T], error) {
+func (c *Collection[T]) List(params ParamsList) (ResponseList[T], error) {
 	var response ResponseList[T]
 	params.hackResponseRef = &response
 
@@ -40,7 +40,7 @@ func (c Collection[T]) List(params ParamsList) (ResponseList[T], error) {
 	return response, err
 }
 
-func (c Collection[T]) FullList(params ParamsList) (ResponseList[T], error) {
+func (c *Collection[T]) FullList(params ParamsList) (ResponseList[T], error) {
 	var response ResponseList[T]
 	params.hackResponseRef = &response
 
@@ -48,7 +48,7 @@ func (c Collection[T]) FullList(params ParamsList) (ResponseList[T], error) {
 	return response, err
 }
 
-func (c Collection[T]) One(id string) (T, error) {
+func (c *Collection[T]) One(id string) (T, error) {
 	var response T
 
 	if err := c.Authorize(); err != nil {
@@ -80,7 +80,7 @@ func (c Collection[T]) One(id string) (T, error) {
 }
 
 // Get one record with params (only fields and expand supported)
-func (c Collection[T]) OneWithParams(id string, params ParamsList) (T, error) {
+func (c *Collection[T]) OneWithParams(id string, params ParamsList) (T, error) {
 	var response T
 
 	if err := c.Authorize(); err != nil {
