@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pluja/pocketbase/migrations"
 	"github.com/stretchr/testify/assert"
+	"github.com/zcharym/pocketbase-client/migrations"
 )
 
 func TestCollection_Subscribe(t *testing.T) {
